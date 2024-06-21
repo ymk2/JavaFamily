@@ -271,6 +271,7 @@ https://github.com/h2pl/SwordToOffer
 
 
 
+
     该算法的时间复杂度是多少呢？考虑最坏情况下，每次 partition 将数组分为长度为 N-1 和 1 的两部分，然后在长的一边继续寻找第 K 大，此时时间复杂度为 O(N^2 )。不过如果在开始之前将数组进行随机打乱，那么可以尽量避免最坏情况的出现。而在最好情况下，每次将数组均分为长度相同的两半，运行时间 T(N) = N + T(N/2)，时间复杂度是 O(N)。
 
 所以也就是说，本题用这个方法解的话，复杂度只需要O（n),因为第一次交换需要N/2,j接下来的交换的次数越来越少，最后加起来就是O（N）了。
@@ -1541,6 +1542,7 @@ public static int LastRemaining_Solution(int n, int m) {
 
 
 
+
         注意：但是当arr[left] = arr[right] = arr[min]时。三个数都相等无法确定最小值，此时只能遍历。
 
 # 递归
@@ -1620,65 +1622,6 @@ public static int LastRemaining_Solution(int n, int m) {
         return num1;
     }
 
-# 回溯和DFS
-
-## 矩阵中的路径
-
-题目描述
-请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。如果一条路径经过了矩阵中的某一个格子，则之后不能再次进入这个格子。 例如 a b c e s f c s a d e e 这样的3 X 4 矩阵中包含一条字符串"bcced"的路径，但是矩阵中不包含"abcb"路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。
-
-解析：回溯法也就是特殊的dfs，需要找到所有的路径，所以每当到达边界条件或抵达目标时，递归返回，由于需要保存路径中的字母，所以递归返回时需要删除路径最后的节点，来保证路径合法。不过本题只有一个解，所以找到即可返回。
-
-    public class 矩阵中的路径 {
-        public static void main(String[] args) {
-            char[][]arr = {{'a','b','c','e'},{'s','f','c','s'},{'a','d','e','e'}};
-            char []str = {'b','c','c','e','d'};
-            System.out.println(hasPath(arr, arr.length, arr[0].length, str));
-        }
-        static int flag = 0;
-        public static boolean hasPath(char[][] matrix, int rows, int cols, char[] str)
-        {
-            int [][]visit = new int[rows][cols];
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0;i < rows;i ++) {
-                for (int j = 0;j < cols;j ++) {
-                    if (matrix[i][j] == str[0]) {
-                        visit[i][j] = 1;
-                        sb.append(str[0]);
-                        dfs(matrix, i, j, visit, str, 1, sb);
-                        visit[i][j] = 0;
-                        sb.deleteCharAt(sb.length() - 1);
-                    }
-                }
-            }
-            return flag == 1;
-        }
-        public static void dfs(char [][]matrix, int row, int col, int [][]visit, char []str, int cur, StringBuilder sb) {
-            if (sb.length() == str.length) {
-    //            System.out.println(sb.toString());
-                flag = 1;
-                return;
-            }
-    
-            int [][]pos = {{1,0},{-1,0},{0,1},{0,-1}};
-            for (int i = 0;i < pos.length;i ++) {
-                int x = row + pos[i][0];
-                int y = col + pos[i][1];
-                if (x >= matrix.length || x < 0 || y >= matrix[0].length || y < 0) {
-                    continue;
-                }
-                if (visit[x][y] == 0 && matrix[x][y] == str[cur]) {
-                    sb.append(matrix[x][y]);
-                    visit[x][y] = 1;
-                    dfs(matrix, x, y, visit, str, cur + 1, sb);
-                    sb.deleteCharAt(sb.length() - 1);
-                    visit[x][y] = 0;
-                }
-            }
-        }
-
-
-​    
 ## 机器人的运动范围
 
 题目描述
