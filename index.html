@@ -345,7 +345,7 @@
 
   <nav class="app-nav no-badge">
     <ul>
-      <li>在线工具
+      <li>在线工具<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f528.png" alt="hammer">
         <ul>
           <li><a href="https://www.json.cn/" target="_blank" rel="noopener" title="JSON">JSON</a></li>
           <li><a href="https://www.json.cn/json/json2java.html" target="_blank" rel="noopener"
@@ -628,7 +628,12 @@
       </div>
     </section>
   </main>
-
+  <script>
+    // 在 DOMContentLoaded 事件中显示预加载的导航元素
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('.app-nav').style.display = 'block';
+    });
+  </script>
   <script>
     // var gitalk = new Gitalk({
     //     clientID: '2ca3fccfe9e3d02f38fa',
